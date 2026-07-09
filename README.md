@@ -56,7 +56,21 @@ erDiagram
 
 ## 🗄️ Database Schema
 
-_(Schema explanation will be completed in Task 2)_
+The full schema with sample data lives in [setup.sql](setup.sql). Key design decisions:
+
+- **`SERIAL PRIMARY KEY`** on all three id columns — auto-incrementing, unique, and never NULL.
+- **Foreign keys with referential integrity:** `bookings.user_id → users.user_id` and `bookings.match_id → matches.match_id`. A booking can never point to a user or match that doesn't exist.
+- **`ON DELETE CASCADE`** — if a user or match is removed, their bookings are cleaned up automatically instead of becoming orphans.
+- **`CHECK` constraints on status fields** — `role`, `match_status`, and `payment_status` only accept their defined values (e.g. `payment_status` must be `Pending`, `Confirmed`, `Cancelled`, or `Refunded`).
+- **`UNIQUE` on `users.email`** — two accounts can't share a login address.
+- **Nullable by design:** `phone_number`, `seat_number`, and `payment_status` allow NULL because the business data genuinely can be missing (an unallocated seat, an unresolved payment).
+- **`NUMERIC(10,2)` for money** — exact decimal arithmetic; `FLOAT` would introduce rounding errors.
+
+| Table | Purpose |
+|---|---|
+| `users` | Administrative staff (Ticket Manager) and customers (Football Fan) |
+| `matches` | Tournament events with baseline ticket pricing and availability status |
+| `bookings` | Transactional records linking one user to one match per reserved seat |
 
 ---
 
