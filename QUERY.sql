@@ -62,3 +62,32 @@ FROM bookings AS b
 INNER JOIN users   AS u ON b.user_id  = u.user_id
 INNER JOIN matches AS m ON b.match_id = m.match_id
 ORDER BY b.booking_id;
+
+-- ------------------------------------------------------------
+-- Query 5
+-- Display a comprehensive list of all users and their booking
+-- IDs, ensuring that fans who have never bought a ticket are
+-- still listed.
+-- Concepts used: LEFT JOIN
+-- ------------------------------------------------------------
+SELECT
+    u.user_id,
+    u.full_name,
+    b.booking_id
+FROM users AS u
+LEFT JOIN bookings AS b ON u.user_id = b.user_id
+ORDER BY u.user_id, b.booking_id;
+
+-- ------------------------------------------------------------
+-- Query 6
+-- Find all ticket bookings where the total cost is strictly
+-- higher than the average cost of all ticket bookings.
+-- Concepts used: subquery, AVG
+-- ------------------------------------------------------------
+SELECT
+    booking_id,
+    match_id,
+    total_cost
+FROM bookings
+WHERE total_cost > (SELECT AVG(total_cost) FROM bookings)
+ORDER BY booking_id;
