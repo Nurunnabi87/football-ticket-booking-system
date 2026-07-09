@@ -91,3 +91,17 @@ SELECT
 FROM bookings
 WHERE total_cost > (SELECT AVG(total_cost) FROM bookings)
 ORDER BY booking_id;
+
+-- ------------------------------------------------------------
+-- Query 7
+-- Retrieve the top 2 most expensive matches sorted by base
+-- ticket price, skipping the absolute highest premium match.
+-- Concepts used: ORDER BY, LIMIT, OFFSET (pagination)
+-- ------------------------------------------------------------
+SELECT
+    match_id,
+    fixture,
+    base_ticket_price
+FROM matches
+ORDER BY base_ticket_price DESC
+LIMIT 2 OFFSET 1;
