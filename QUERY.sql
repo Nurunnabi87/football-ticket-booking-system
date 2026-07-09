@@ -46,3 +46,19 @@ SELECT
     COALESCE(payment_status, 'Action Required') AS systematic_status
 FROM bookings
 WHERE payment_status IS NULL;
+
+-- ------------------------------------------------------------
+-- Query 4
+-- Retrieve match booking details along with the User's full
+-- name and the scheduled Match fixture teams.
+-- Concepts used: INNER JOIN
+-- ------------------------------------------------------------
+SELECT
+    b.booking_id,
+    u.full_name,
+    m.fixture,
+    b.total_cost
+FROM bookings AS b
+INNER JOIN users   AS u ON b.user_id  = u.user_id
+INNER JOIN matches AS m ON b.match_id = m.match_id
+ORDER BY b.booking_id;
