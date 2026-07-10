@@ -11,3 +11,6 @@ desktop.ini
 # Backup / temp files
 *.bak
 *.tmp
+
+# Personal viva preparation notes (not part of the submission repo)
+THEORY.md

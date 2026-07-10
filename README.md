@@ -76,10 +76,43 @@ The full schema with sample data lives in [setup.sql](setup.sql). Key design dec
 
 ## 🔍 SQL Queries
 
-_(The 7 queries with explanations will be added as they are completed — see [QUERY.sql](QUERY.sql))_
+All 7 queries live in [QUERY.sql](QUERY.sql), each verified against the assignment's expected sample output.
+
+| # | Task | Concepts used |
+|---|---|---|
+| 1 | Champions League matches with 'Available' status | `WHERE`, `AND` |
+| 2 | Names starting with 'Tanvir' or containing 'Haque' (case-insensitive) | `LIKE`, `ILIKE`, `OR` |
+| 3 | Bookings with missing payment status, shown as 'Action Required' | `IS NULL`, `COALESCE` |
+| 4 | Booking details with user name and match fixture | `INNER JOIN` |
+| 5 | All users and their booking IDs, including fans with no bookings | `LEFT JOIN` |
+| 6 | Bookings costing strictly more than the average booking | Scalar subquery, `AVG` |
+| 7 | Top 2 most expensive matches, skipping the highest one | `ORDER BY`, `LIMIT`, `OFFSET` |
 
 ---
 
 ## 🚀 How to Run
 
-_(Setup instructions will be completed at the end)_
+**Requirements:** PostgreSQL (any recent version; developed on PostgreSQL 18).
+
+```bash
+# 1. Create the database
+psql -U postgres -c "CREATE DATABASE football_ticket_booking;"
+
+# 2. Create the tables and load the sample data
+psql -U postgres -d football_ticket_booking -f setup.sql
+
+# 3. Run all 7 queries
+psql -U postgres -d football_ticket_booking -f QUERY.sql
+```
+
+Both scripts are safely re-runnable — `setup.sql` drops and recreates the tables on every run.
+
+---
+
+## ✅ Submission Checklist
+
+- [x] ERD (public link above + editable `ERD.drawio` in the repo)
+- [x] `setup.sql` — schema with PK/FK/CHECK constraints + sample data
+- [x] `QUERY.sql` — all 7 queries, outputs verified against the expected samples
+- [x] Incremental commit history (one commit per task)
+- [ ] Interview video (any 3 theory questions) uploaded and linked publicly
